@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
@@ -21,6 +22,9 @@
     "mysql2": "^3.23.4",
     "nodemailer": "^9.0.5",
     "ratelimit": "^0.0.4",
+    "react": "^19.2.8",
+    "react-helmet-async": "^3.0.0",
+    "react-router-dom": "^7.18.2",
     "sequelize": "^6.37.8"
   },
   "devDependencies": {

@@ -1,0 +1,34 @@
+@import './variables';
+
+// Surcharge des couleurs Bootstrap avec la charte graphique avant l'import
+$primary: $color-primary;
+$danger: $color-danger;
+$success: $color-success;
+$dark: $color-dark;
+$body-color: $color-dark;
+$font-family-base: $font-family-base;
+
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  background-color: $color-light;
+}
+
+// Mobile first : styles de base pensés pour mobile, on enrichit ensuite
+.card-artisan {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover,
+  &:focus-within {
+    box-shadow: 0 4px 12px rgba($color-dark, 0.15);
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  // ajustements tablette
+}
+
+@media (min-width: $breakpoint-desktop) {
+  // ajustements desktop
+}
