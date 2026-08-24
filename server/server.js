@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const app = require("./app");
 const { sequelize } = require("./models");
 
@@ -7,6 +9,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Connexion à la base de données réussie.");
+
     app.listen(PORT, () => {
       console.log(`Serveur démarré sur http://localhost:${PORT}`);
     });
