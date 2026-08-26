@@ -1,0 +1,14 @@
+// Palette de couleurs définie dans le brief (charte graphique "Trouve ton artisan")
+$color-light: #f1f8fc;
+$color-primary: #0074c7;
+$color-primary-dark: #00497c;
+$color-dark: #384050;
+$color-danger: #cd2c2e;
+$color-success: #82b864;
+
+// Police officielle de la région (Graphik) avec repli système
+$font-family-base: 'Graphik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+// Breakpoints (mobile first)
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;

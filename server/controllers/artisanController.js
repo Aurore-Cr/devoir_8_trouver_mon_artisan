@@ -11,39 +11,42 @@ const includeSpecialite = [
 ];
 
 // GET /api/artisans
-// Filtre possible par catégorie (?categorie=Batiment) et par recherche sur le nom (?recherche=dumont)
+// Filtre possible par categorie (?categorie=Batiment) et par recherche sur le nom (?recherche=dumont)
 exports.getAllArtisans = async (req, res, next) => {
   try {
     const { categorie, recherche } = req.query;
     const where = {};
-    const specialiteWhere = {};
-    const categorieWhere = {};
 
     if (recherche) {
       where.nom = { [Op.like]: `%${recherche}%` };
     }
+
+    const specialiteInclude = {
+      model: Specialite,
+      as: 'specialite',
+      attributes: ['id', 'nom'],
+      include: [{ model: Categorie, as: 'categorie', attributes: ['id', 'nom'] }],
+    };
+
     if (categorie) {
-      categorieWhere.nom = categorie;
+      // On resout d'abord le nom de categorie en id, puis on filtre directement
+      // sur specialite.categorie_id : un seul niveau de "where", donc pas besoin
+      // de jongler avec "required" sur un include imbrique a deux niveaux.
+      const categorieTrouvee = await Categorie.findOne({ where: { nom: categorie } });
+
+      if (!categorieTrouvee) {
+        // Categorie inconnue (faute de frappe dans l'URL, etc.) : aucun resultat,
+        // sans provoquer d'erreur.
+        return res.json([]);
+      }
+
+      specialiteInclude.where = { categorie_id: categorieTrouvee.id };
+      specialiteInclude.required = true;
     }
 
     const artisans = await Artisan.findAll({
       where,
-      include: [
-        {
-          model: Specialite,
-          as: 'specialite',
-          attributes: ['id', 'nom'],
-          where: Object.keys(specialiteWhere).length ? specialiteWhere : undefined,
-          include: [
-            {
-              model: Categorie,
-              as: 'categorie',
-              attributes: ['id', 'nom'],
-              where: Object.keys(categorieWhere).length ? categorieWhere : undefined,
-            },
-          ],
-        },
-      ],
+      include: [specialiteInclude],
       order: [['nom', 'ASC']],
     });
 
