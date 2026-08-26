@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import ArtisanCard from '../components/ArtisanCard/ArtisanCard';
 import { getTopArtisans } from '../services/api';
 
@@ -36,26 +39,28 @@ function Home() {
 
       <section className="container py-4" aria-labelledby="comment-trouver">
         <h2 id="comment-trouver">Comment trouver mon artisan ?</h2>
-        <ol className="row list-unstyled">
+        <Row as="ol" className="list-unstyled g-3">
           {ETAPES.map((etape) => (
-            <li key={etape.numero} className="col-12 col-md-6 col-lg-3 mb-3">
-              <div className="p-3 border rounded h-100">
-                <span className="fw-bold">{etape.numero}.</span> {etape.texte}
-              </div>
-            </li>
+            <Col as="li" key={etape.numero} xs={12} md={6} lg={3}>
+              <Card className="h-100">
+                <Card.Body>
+                  <span className="fw-bold">{etape.numero}.</span> {etape.texte}
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </ol>
+        </Row>
       </section>
 
       <section className="container py-4" aria-labelledby="artisans-du-mois">
         <h2 id="artisans-du-mois">Les artisans du mois</h2>
-        <div className="row g-3">
+        <Row className="g-3">
           {topArtisans.map((artisan) => (
-            <div className="col-12 col-md-4" key={artisan.id}>
+            <Col xs={12} md={4} key={artisan.id}>
               <ArtisanCard artisan={artisan} />
-            </div>
+            </Col>
           ))}
-        </div>
+        </Row>
       </section>
     </>
   );

@@ -4,13 +4,21 @@ import SearchBar from '../SearchBar/SearchBar';
 import { getCategories } from '../../services/api';
 import logo from '../../assets/img/Logo.png';
 
+// Ordre imposé par le brief pour le menu du header
+const ORDRE_CATEGORIES = ['Bâtiment', 'Services', 'Fabrication', 'Alimentation'];
+
 // Header commun à toutes les pages : logo, menu (catégories issues de la BDD), barre de recherche
 function Header() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     getCategories()
-      .then(setCategories)
+      .then((data) => {
+        const triees = [...data].sort(
+          (a, b) => ORDRE_CATEGORIES.indexOf(a.nom) - ORDRE_CATEGORIES.indexOf(b.nom)
+        );
+        setCategories(triees);
+      })
       .catch(() => setCategories([]));
   }, []);
 

@@ -1,20 +1,24 @@
 import { Link } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
 import StarRating from '../StarRating/StarRating';
 
 // Petite fiche cliquable pour un artisan : nom, note, spécialité, localisation
 function ArtisanCard({ artisan }) {
   return (
-    <Link
+    <Card
+      as={Link}
       to={`/artisan/${artisan.id}`}
-      className="card card-artisan text-decoration-none text-dark h-100"
+      className="card-artisan h-100 text-decoration-none text-dark"
     >
-      <div className="card-body">
-        <h3 className="h5 card-title">{artisan.nom}</h3>
+      <Card.Body>
+        <Card.Title as="h3" className="h5">
+          {artisan.nom}
+        </Card.Title>
         <StarRating note={artisan.note} />
-        <p className="card-text mb-1 mt-2">{artisan.specialite?.nom}</p>
-        <p className="card-text text-muted small">{artisan.ville}</p>
-      </div>
-    </Link>
+        <Card.Text className="mb-1 mt-2">{artisan.specialite?.nom}</Card.Text>
+        <Card.Text className="text-muted small">{artisan.ville}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 

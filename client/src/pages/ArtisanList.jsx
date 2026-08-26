@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import ArtisanCard from '../components/ArtisanCard/ArtisanCard';
 import { getArtisans } from '../services/api';
 
@@ -34,13 +36,13 @@ function ArtisanList() {
         {loading && <p>Chargement...</p>}
         {!loading && artisans.length === 0 && <p>Aucun artisan trouvé.</p>}
 
-        <div className="row g-3">
+        <Row className="g-3">
           {artisans.map((artisan) => (
-            <div className="col-12 col-sm-6 col-lg-4" key={artisan.id}>
+            <Col xs={12} sm={6} lg={4} key={artisan.id}>
               <ArtisanCard artisan={artisan} />
-            </div>
+            </Col>
           ))}
-        </div>
+        </Row>
       </section>
     </>
   );

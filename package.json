@@ -8,8 +8,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "react-helmet-async": "^3.0.0"
-  }
+  "description": ""
 }
